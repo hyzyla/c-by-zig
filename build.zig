@@ -8,7 +8,8 @@ pub fn build(b: *std.Build) void {
         .optimize = b.standardOptimizeOption(.{}),
     });
 
-    // Find all C source files in the src/ directory
+    // Place where the compiler will look for header files (.h)
+    exe.addIncludePath(.{ .path = "src" });
 
     exe.addCSourceFiles(.{
         // !!! Important
@@ -30,9 +31,6 @@ pub fn build(b: *std.Build) void {
             "-Wextra",
         },
     });
-
-    // Place where the compiler will look for header files
-    exe.addIncludePath(.{ .path = "src" });
 
     b.installArtifact(exe);
 
